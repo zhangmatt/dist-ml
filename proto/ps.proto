@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package distml.ps;
+
+service ParameterServer {
+  rpc Pull(PullRequest) returns (PullResponse);
+  rpc Push(PushRequest) returns (PushResponse);
+  rpc Save(SaveRequest) returns (SaveResponse);
+}
+
+message PullRequest {}
+
+message PullResponse {
+  int64 step = 1;
+  repeated double weights = 2;
+}
+
+message PushRequest {
+  int32 worker_id = 1;
+  int64 step = 2;
+  int64 samples = 3;
+  repeated double gradient = 4;
+}
+
+message PushResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    QUEUED = 1;
+    UPDATED = 2;
+    STALE = 3;
+    ERROR = 4;
+  }
+
+  Status status = 1;
+  int64 global_step = 2;
+  int32 pending_workers = 3;
+  string message = 4;
+}
+
+message SaveRequest {
+  string path = 1;
+}
+
+message SaveResponse {
+  bool ok = 1;
+  string message = 2;
+}

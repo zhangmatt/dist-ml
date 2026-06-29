@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package distml.serving;
+
+service InferenceService {
+  rpc Predict(PredictRequest) returns (PredictResponse);
+  rpc Metrics(MetricsRequest) returns (MetricsResponse);
+}
+
+message PredictRequest {
+  repeated double features = 1;
+}
+
+message PredictResponse {
+  double probability = 1;
+  int32 label = 2;
+  int64 model_version = 3;
+}
+
+message MetricsRequest {}
+
+message MetricsResponse {
+  int64 processed_requests = 1;
+  int64 processed_batches = 2;
+  int32 queue_depth = 3;
+  int32 desired_replicas = 4;
+  double average_latency_ms = 5;
+  double p99_latency_ms = 6;
+}

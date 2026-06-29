@@ -1,0 +1,34 @@
+services:
+  trainer:
+    build: .
+    command:
+      - python3
+      - scripts/train_distributed.py
+      - --param-server-bin
+      - /app/build/param_server
+      - --workers
+      - "2"
+      - --epochs
+      - "80"
+      - --output
+      - /models/model.weights
+    volumes:
+      - model:/models
+
+  serving:
+    build: .
+    command:
+      - /bin/sh
+      - -c
+      - |
+        while [ ! -f /models/model.weights ]; do sleep 1; done
+        /app/build/inference_server --host 0.0.0.0 --port 50052 --weights /models/model.weights --max-batch-size 16 --max-delay-ms 5
+    ports:
+      - "50052:50052"
+    volumes:
+      - model:/models
+    depends_on:
+      - trainer
+
+volumes:
+  model:

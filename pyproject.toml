@@ -1,0 +1,12 @@
+[project]
+name = "dist-ml"
+version = "0.1.0"
+description = "Minimal distributed ML training and serving platform."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = ["."]
