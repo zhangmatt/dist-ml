@@ -10,8 +10,6 @@ Minimal distributed-systems project for ML training and low-latency serving. The
 - **Operational signals:** queue depth, processed batches, p99 latency, throughput, desired replica count.
 - **End-to-end verification:** baseline training, 2-worker distributed training, serving load test, C++ and Python tests.
 
-This is not a production ML framework. It is a compact, runnable system that demonstrates the infra concepts behind large-scale training and serving.
-
 ## Architecture
 
 ```text
