@@ -2,7 +2,7 @@
 
 Minimal distributed-systems project for ML training and low-latency serving. The model is intentionally small; the real work is in the infrastructure path: sharded workers, a C++ parameter server, sync/async gradient aggregation, dynamic request batching, p99 latency metrics, and autoscaling decisions.
 
-## What This Shows
+## Highlights
 
 - **C++20 systems path:** parameter server, inference server, dynamic batcher, autoscaler, socket protocol, and CMake build.
 - **Distributed training:** deterministic data sharding, worker replicas, gradient push/pull, weighted aggregation, sync vs. async SGD.
